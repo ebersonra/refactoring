@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+}
+
+group 'br.com.refatoracao'
+version '1.0.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    compile "com.google.code.gson:gson:2.8.9"
+    compile "org.json:json:20210307"
+
+    testImplementation "org.testng:testng:7.1.0"
+}
+
+test {
+    useTestNG()
+}
