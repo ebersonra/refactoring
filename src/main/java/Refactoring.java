@@ -1,10 +1,14 @@
 import com.google.gson.Gson;
 import org.json.JSONObject;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 public class Refactoring {
 
@@ -12,6 +16,9 @@ public class Refactoring {
     public static Plays plays;
 
     public static Double totalAmount;
+    public static Double volumeCredits;
+
+    public static String result;
 
     /**
      * compilar-testar-fazer commit
@@ -40,9 +47,9 @@ public class Refactoring {
 
     private static void statement(Invoice invoice, Plays plays) {
         totalAmount = 0D;
-        var volumeCredits = 0D;
-        var result = "Statement for "+invoice.getCustomer();
-        var format = new DecimalFormat();
+        volumeCredits = 0D;
+        result = "Statement for "+invoice.getCustomer()+"\n";
+        var format = NumberFormat.getCurrencyInstance(Locale.US);
 
         var playsArray = new JSONObject(plays);
 
@@ -71,7 +78,21 @@ public class Refactoring {
                     throw new Error("Unknown type: "+play.getType());
             }
 
+            // soma créditos por volume
+            volumeCredits += Math.max(perf.getAudience() - 30, 0);
+            // soma um crédito extra para cada dez espectadores de comédia
+            if ("comedy".equalsIgnoreCase(play.getType())){
+                volumeCredits += Math.floor(perf.getAudience() / 5);
+            }
+
+            //exibe a linha para esta requisiçao
+            result += play.getName() + ": " + format.format(thisAmount/100) + " (" + perf.getAudience() + " seats)\n";
             totalAmount += thisAmount;
         }
+
+        result += "Amount owed is "+format.format(totalAmount/100)+"\n";
+        result += "You earned "+volumeCredits+" credits\n";
+
+        System.out.println(result);
     }
 }

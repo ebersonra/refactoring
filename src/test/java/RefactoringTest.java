@@ -3,6 +3,8 @@ import org.testng.annotations.Test;
 
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import static org.testng.Assert.*;
 
@@ -69,11 +71,43 @@ public class RefactoringTest {
     }
 
     @Test
-    public void testThisAmount() {
+    public void testTotalAmount() {
 
-        Double thisAmount = Refactoring.totalAmount;
+        Double totalAmount = Refactoring.totalAmount;
+        var format = NumberFormat.getCurrencyInstance(Locale.US);
 
-        assertNotNull(thisAmount);
-        assertEquals(thisAmount, new Double(173000));
+        String formatTotalAmount = format.format(totalAmount/100);
+
+        assertNotNull(totalAmount);
+        assertNotEquals(totalAmount, Double.parseDouble("0.0"));
+        assertNotNull(formatTotalAmount);
+        assertNotEquals(formatTotalAmount," ");
+
+        assertEquals(formatTotalAmount, "$1,730.00");
+    }
+
+    @Test
+    public void testVolumeCredits() {
+
+        Double volumeCredits = Refactoring.volumeCredits;
+
+        assertNotNull(volumeCredits);
+        assertNotEquals(volumeCredits, Double.parseDouble("0.0"));
+
+        assertEquals(volumeCredits, Double.valueOf("47.0"));
+    }
+
+    @Test
+    public void testResult() {
+        String result = Refactoring.result;
+        var format = NumberFormat.getCurrencyInstance(Locale.US);
+
+        assertNotNull(result);
+        assertNotEquals(result," ");
+
+        assertTrue(result.contains(String.valueOf(Refactoring.volumeCredits)));
+        assertTrue(result.contains(format.format(Refactoring.totalAmount/100)));
+        assertTrue(result.contains(Refactoring.plays.getHamlet().getName()));
+        assertTrue(result.contains(Refactoring.invoice[0].getCustomer()));
     }
 }
