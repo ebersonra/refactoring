@@ -1,3 +1,5 @@
+package br.com.refactoring.domain;
+
 import java.util.List;
 
 public class Invoice {

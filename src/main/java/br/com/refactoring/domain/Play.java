@@ -1,3 +1,5 @@
+package br.com.refactoring.domain;
+
 public class Play {
 
     private String name;

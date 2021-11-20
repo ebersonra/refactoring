@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'br.com.refatoracao'
+group 'br.com.refactoring'
 version '1.0.0-SNAPSHOT'
 
 repositories {

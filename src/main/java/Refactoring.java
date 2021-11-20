@@ -1,3 +1,7 @@
+import br.com.refactoring.domain.Invoice;
+import br.com.refactoring.domain.Play;
+import br.com.refactoring.domain.Plays;
+import br.com.refactoring.error.Error;
 import com.google.gson.Gson;
 import org.json.JSONObject;
 

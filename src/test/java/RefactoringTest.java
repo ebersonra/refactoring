@@ -1,3 +1,5 @@
+import br.com.refactoring.domain.Invoice;
+import br.com.refactoring.domain.Plays;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -6,7 +8,11 @@ import java.net.URISyntaxException;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotEquals;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertTrue;
+
 
 public class RefactoringTest {
 

@@ -1,3 +1,5 @@
+package br.com.refactoring.domain;
+
 public class Plays {
 
     private Play hamlet;
